@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Feliz Dia das Mães ❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:        #faf5f0;
+      --peach:     #f0c8b0;
+      --rose:      #c85e72;
+      --rose-lt:   #f0a8b8;
+      --warm:      #8b4a5a;
+      --text:      #3a2428;
+      --muted:     #9a7070;
+      --light:     #fffaf8;
+      --card-bg:   #fff8f4;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── FUNDO ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 15% 5%,  #fce8e088 0%, transparent 55%),
+        radial-gradient(ellipse 50% 40% at 85% 95%, #fde0d488 0%, transparent 55%);
+      pointer-events: none; z-index: 0;
+    }
+
+    .wrap { position: relative; z-index: 1; }
+
+    /* ════════════════════════════════
+       ① HERO — foto + título
+    ════════════════════════════════ */
+    .hero {
+      min-height: 100svh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+      gap: 3rem;
+    }
+
+    @media (max-width: 620px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+        padding: 4rem 1.5rem 3rem;
+      }
+      .hero-photo { order: -1; }
+    }
+
+    /* texto hero */
+    .hero-text { opacity: 0; animation: fadeLeft .9s .2s ease forwards; }
+
+    .hero-tag {
+      font-size: .7rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--rose);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    .hero-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.4rem, 7vw, 4rem);
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--text);
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--rose);
+      display: block;
+    }
+
+    .hero-sub {
+      margin-top: 1.4rem;
+      font-size: clamp(.9rem, 2.5vw, 1.05rem);
+      color: var(--muted);
+      line-height: 1.7;
+      font-weight: 300;
+      max-width: 340px;
+    }
+
+    @media (max-width: 620px) { .hero-sub { max-width: 100%; margin: 1rem auto 0; } }
+
+    .hero-heart {
+      font-size: 2rem;
+      margin-top: 1.2rem;
+      display: block;
+      animation: pulse 2.2s 1s ease-in-out infinite;
+    }
+
+    /* foto hero */
+    .hero-photo {
+      opacity: 0;
+      animation: fadeRight .9s .5s ease forwards;
+    }
+
+    .photo-frame {
+      position: relative;
+      border-radius: 24px 60px 24px 60px;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      background: linear-gradient(135deg, var(--peach), #f8d0c0);
+      box-shadow: 0 24px 60px -14px rgba(180, 80, 100, .22);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--rose);
+    }
+
+    .photo-frame img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-frame::after {
+      content: '';
+      position: absolute; inset: 0;
+      border: 2px solid rgba(255,255,255,.4);
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    /* ── SCROLL INDICATOR ── */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center;
+      gap: .4rem;
+      opacity: 0;
+      animation: fadeIn 1s 1.5s ease forwards;
+      color: var(--rose-lt);
+      font-size: .7rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    .scroll-hint::after {
+      content: '';
+      width: 1px; height: 36px;
+      background: linear-gradient(to bottom, var(--rose-lt), transparent);
+      animation: scrollLine 1.6s ease-in-out infinite;
+    }
+
+    @keyframes scrollLine {
+      0%, 100% { transform: scaleY(1); opacity: 1; }
+      50%       { transform: scaleY(.4); opacity: .4; }
+    }
+
+    /* ════════════════════════════════
+       ② MENSAGEM
+    ════════════════════════════════ */
+    .section-msg {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+
+    .section-label {
+      font-size: .7rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--rose);
+      font-weight: 500;
+      margin-bottom: 1.4rem;
+    }
+
+    .quote-mark {
+      font-family: 'DM Serif Display', serif;
+      font-size: 5rem;
+      color: var(--peach);
+      line-height: .4;
+      display: block;
+      margin-bottom: .6rem;
+    }
+
+    .msg-text {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.3rem, 4vw, 2rem);
+      font-weight: 400;
+      line-height: 1.65;
+      color: var(--text);
+      font-style: italic;
+    }
+    .msg-text em { color: var(--rose); font-style: normal; }
+
+    .msg-line {
+      width: 50px; height: 2px;
+      background: var(--rose-lt);
+      margin: 2rem auto;
+      border-radius: 2px;
+    }
+
+    /* ════════════════════════════════
+       ③ GALERIA (2 fotos)
+    ════════════════════════════════ */
+    .section-gallery {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0 2rem 5rem;
+    }
+
+    .gallery-2 {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 1.2rem;
+      align-items: start;
+    }
+
+    @media (max-width: 500px) {
+      .gallery-2 { grid-template-columns: 1fr; }
+    }
+
+    .g-card {
+      border-radius: 20px;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--peach), #f8d0c0);
+      box-shadow: 0 10px 36px -10px rgba(180, 80, 100, .2);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--rose);
+      transition: transform .4s ease, box-shadow .4s ease;
+    }
+
+    .g-card:first-child { aspect-ratio: 4/5; }
+    .g-card:last-child  { aspect-ratio: 3/4; margin-top: 2rem; }
+
+    .g-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px -10px rgba(180, 80, 100, .28);
+    }
+
+    .g-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* ════════════════════════════════
+       ④ MÚSICA + BOTÃO SURPRESA
+    ════════════════════════════════ */
+    .section-cta {
+      padding: 1rem 2rem 6rem;
+      text-align: center;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    /* música Spotify embed */
+    .music-wrap {
+      margin-bottom: 2rem;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 34px -10px rgba(180,80,100,.2);
+      display: none;
+    }
+    .music-wrap.show { display: block; }
+    .music-wrap iframe { width: 100%; border: none; display: block; }
+
+    /* botão YouTube */
+    .btn-yt {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      padding: .8rem 1.8rem;
+      border-radius: 50px;
+      background: #fff5f7;
+      border: 1.5px solid var(--rose-lt);
+      color: var(--rose);
+      font-size: .9rem;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      margin-bottom: 2rem;
+      transition: background .25s, transform .2s;
+    }
+    .btn-yt:hover { background: var(--rose-lt); transform: translateY(-2px); }
+
+    /* player mp3 */
+    .player {
+      background: var(--card-bg);
+      border: 1px solid #f0d0d8;
+      border-radius: 20px;
+      padding: 1.4rem 1.6rem;
+      box-shadow: 0 10px 30px -10px rgba(180,80,100,.15);
+      margin-bottom: 2rem;
+      display: none;
+      text-align: left;
+    }
+    .player.show { display: block; }
+    .player-name {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      color: var(--text);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .player-row { display: flex; align-items: center; gap: .8rem; }
+    .play-btn {
+      width: 44px; height: 44px; border-radius: 50%; border: none; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--rose), var(--warm));
+      color: #fff; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; box-shadow: 0 6px 18px -4px rgba(180,80,100,.4);
+      transition: transform .2s;
+    }
+    .play-btn:hover { transform: scale(1.1); }
+    .play-btn svg { width: 18px; height: 18px; fill: #fff; }
+    .seek-wrap { flex: 1; display: flex; flex-direction: column; gap: .3rem; }
+    .seek {
+      -webkit-appearance: none; appearance: none;
+      width: 100%; height: 4px; border-radius: 4px;
+      background: var(--peach); outline: none; cursor: pointer;
+    }
+    .seek::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 13px; height: 13px;
+      border-radius: 50%; background: var(--rose); cursor: pointer;
+    }
+    .times { display: flex; justify-content: space-between; font-size: .7rem; color: var(--muted); }
+
+    /* botão surpresa */
+    .btn-surprise {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: 1rem 2.6rem;
+      border-radius: 50px; border: none;
+      background: linear-gradient(135deg, var(--rose), var(--warm));
+      color: #fff;
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem; font-style: italic;
+      cursor: pointer;
+      box-shadow: 0 10px 28px -8px rgba(180, 80, 100, .45);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .btn-surprise:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 16px 36px -8px rgba(180,80,100,.5); }
+
+    /* ── MODAL ── */
+    .overlay {
+      position: fixed; inset: 0;
+      background: rgba(60,20,30,.4);
+      backdrop-filter: blur(10px);
+      z-index: 900;
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity .35s ease;
+    }
+    .overlay.on { opacity: 1; pointer-events: all; }
+
+    .modal {
+      background: var(--light);
+      border-radius: 28px;
+      padding: clamp(2rem, 6vw, 3.2rem);
+      max-width: 460px; width: 100%;
+      text-align: center;
+      box-shadow: 0 40px 80px -20px rgba(60,20,30,.3);
+      transform: scale(.92) translateY(20px);
+      transition: transform .4s cubic-bezier(.34,1.56,.64,1);
+      position: relative;
+    }
+    .overlay.on .modal { transform: scale(1) translateY(0); }
+
+    .modal-emoji { font-size: 3rem; display: block; margin-bottom: .6rem; animation: bounceIn .5s .2s ease both; }
+    .modal-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.5rem, 5vw, 2.1rem);
+      color: var(--text); margin-bottom: .8rem;
+    }
+    .modal-body {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(.95rem, 3vw, 1.2rem);
+      font-style: italic; color: var(--warm); line-height: 1.7;
+    }
+    .modal-close {
+      margin-top: 1.8rem;
+      padding: .55rem 1.8rem; border-radius: 40px;
+      border: 1.5px solid var(--rose-lt);
+      color: var(--rose); background: transparent;
+      font-size: .82rem; cursor: pointer;
+      transition: background .2s, color .2s;
+    }
+    .modal-close:hover { background: var(--rose-lt); color: var(--light); }
+
+    /* ── FOOTER ── */
+    .footer { text-align: center; padding: 2rem 1.5rem; font-size: .75rem; color: var(--muted); letter-spacing: .06em; }
+
+    /* ── ANIMAÇÕES ── */
+    @keyframes fadeLeft {
+      from { opacity: 0; transform: translateX(-28px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes fadeRight {
+      from { opacity: 0; transform: translateX(28px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.2); }
+    }
+    @keyframes bounceIn {
+      0%   { transform: scale(0) rotate(-15deg); opacity: 0; }
+      70%  { transform: scale(1.15) rotate(4deg); }
+      100% { transform: scale(1) rotate(0); opacity: 1; }
+    }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ① HERO -->
+  <section class="hero" style="position:relative;">
+    <div class="hero-text">
+      <p class="hero-tag" id="heroTag">✦ Dia das Mães</p>
+      <h1 class="hero-title">
+        Para a minha<br>
+        <em id="nomeMae">Mamãe</em>
+      </h1>
+      <p class="hero-sub" id="heroSub">Com todo o amor do mundo, neste dia tão especial.</p>
+      <span class="hero-heart">❤️</span>
+    </div>
+
+    <div class="hero-photo">
+      <div class="photo-frame" id="photoFrame">Foto 1</div>
+    </div>
+
+    <div class="scroll-hint">role</div>
+  </section>
+
+  <!-- ② MENSAGEM -->
+  <section class="section-msg">
+    <p class="section-label reveal">Mensagem do coração</p>
+    <span class="quote-mark reveal">"</span>
+    <p class="msg-text reveal" id="mensagem">
+      Mãe, obrigada por cada abraço, cada conselho e cada momento ao seu lado.
+    </p>
+    <div class="msg-line reveal"></div>
+  </section>
+
+  <!-- ③ GALERIA -->
+  <section class="section-gallery reveal">
+    <div class="gallery-2">
+      <div class="g-card" id="gCard2">Foto 2</div>
+      <div class="g-card" id="gCard3">Foto 3</div>
+    </div>
+  </section>
+
+  <!-- ④ MÚSICA + CTA -->
+  <section class="section-cta reveal">
+    <!-- música injetada via JS aqui -->
+    <div id="musicArea"></div>
+
+    <button class="btn-surprise" id="btnSurprise">🎁 Clique aqui, mãe</button>
+  </section>
+
+  <footer class="footer" id="rodape">feito com muito amor ❤️</footer>
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <span class="modal-emoji">💌</span>
+    <h2 class="modal-title" id="modalTitle">Eu te amo demais, mãe!</h2>
+    <p class="modal-body"  id="modalBody">Você é meu maior tesouro. 🌸</p>
+    <button class="modal-close" id="modalClose">Fechar ✕</button>
+  </div>
+</div>
+
+<script>
+  /* ╔═══════════════════════════════════════════════════╗
+     ║  ✏️  EDITE AQUI — só este bloco!                  ║
+     ╚═══════════════════════════════════════════════════╝ */
+  const CONFIG = {
+
+    /* 👩 Nome da mãe */
+    nome_mae: "Mamãe",
+
+    /* 💬 Frase curta abaixo do título */
+    subtitulo: "Com todo o amor do mundo, neste dia tão especial.",
+
+    /* 💬 Mensagem principal — use <br> e <em>texto</em> */
+    mensagem: `Mãe, obrigada por cada abraço, cada conselho e cada momento ao seu lado.<br>
+      <em>Você é meu porto seguro e meu maior amor.</em>`,
+
+    /* 📸 Fotos — cole o link ou deixe "" */
+    foto1: "",   // ← foto principal (hero, lado direito)
+    foto2: "",   // ← galeria esquerda
+    foto3: "",   // ← galeria direita
+
+    /* 🎵 Música — cole o link ou deixe "" para não exibir
+       ✅ Spotify  → https://open.spotify.com/track/...
+       ✅ MP3/OGG  → link direto do arquivo
+       ✅ Google Drive MP3 → link de compartilhamento
+       ⚠️ YouTube  → aparece botão */
+    musica: "",
+
+    /* 🎁 Mensagem surpresa */
+    surpresa_titulo: "Eu te amo demais, mãe!",
+    surpresa_texto: `Você é meu maior tesouro e minha maior inspiração.<br>Feliz Dia das Mães! 🌸`,
+
+  };
+  /* 🚫 PARE AQUI */
+
+  /* aplica textos */
+  document.getElementById("nomeMae").textContent  = CONFIG.nome_mae;
+  document.getElementById("heroSub").textContent  = CONFIG.subtitulo;
+  document.getElementById("mensagem").innerHTML   = CONFIG.mensagem;
+  document.getElementById("modalTitle").textContent = CONFIG.surpresa_titulo;
+  document.getElementById("modalBody").innerHTML  = CONFIG.surpresa_texto;
+
+  /* fotos */
+  function setPhoto(id, url, label) {
+    if (!url) return;
+    const el = document.getElementById(id);
+    el.innerHTML = "";
+    const img = document.createElement("img");
+    img.src = url; img.alt = label;
+    img.onerror = () => { el.textContent = label; };
+    el.appendChild(img);
+  }
+  setPhoto("photoFrame", CONFIG.foto1, "Foto 1");
+  setPhoto("gCard2",     CONFIG.foto2, "Foto 2");
+  setPhoto("gCard3",     CONFIG.foto3, "Foto 3");
+
+  /* música */
+  const musicArea = document.getElementById("musicArea");
+  if (CONFIG.musica) {
+    const url = CONFIG.musica.trim();
+    const isYT  = /youtube\.com|youtu\.be/i.test(url);
+    const isSP  = /spotify\.com/i.test(url);
+    const isSC  = /soundcloud\.com/i.test(url);
+    const isGD  = /drive\.google\.com/i.test(url);
+    const isMP3 = /\.(mp3|ogg|wav|m4a)(\?.*)?$/i.test(url);
+
+    if (isSP) {
+      const m = url.match(/spotify\.com\/(?:intl-\w+\/)?(track|album|playlist)\/([a-zA-Z0-9]+)/);
+      const embedUrl = m ? `https://open.spotify.com/embed/${m[1]}/${m[2]}` : url;
+      musicArea.innerHTML = `<div class="music-wrap show"><iframe src="${embedUrl}" height="80"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe></div>`;
+
+    } else if (isSC) {
+      const scUrl = `https://w.soundcloud.com/player/?url=${encodeURIComponent(url)}&color=%23c85e72&auto_play=false&hide_related=true&show_comments=false`;
+      musicArea.innerHTML = `<div class="music-wrap show"><iframe src="${scUrl}" height="100"></iframe></div>`;
+
+    } else if (isYT) {
+      let vid = "";
+      try { const u = new URL(url); vid = u.searchParams.get("v") || u.pathname.split("/").pop(); } catch(_){}
+      const watchUrl = vid ? `https://www.youtube.com/watch?v=${vid}` : url;
+      musicArea.innerHTML = `<a class="btn-yt" href="${watchUrl}" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+        </svg>
+        ♫ Ouvir música no YouTube</a>`;
+
+    } else if (isMP3 || isGD) {
+      let audioUrl = url;
+      if (isGD) {
+        const m = url.match(/\/d\/([^/]+)/);
+        if (m) audioUrl = `https://drive.google.com/uc?export=download&id=${m[1]}`;
+      }
+      const audio = new Audio(audioUrl);
+      const fmt = s => { if(isNaN(s)) return "0:00"; return `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,"0")}`; };
+      const PLAY = "M8 5v14l11-7z", PAUSE = "M6 19h4V5H6v14zm8-14v14h4V5h-4z";
+      musicArea.innerHTML = `<div class="player show" id="player">
+        <div class="player-name">♫ Música especial</div>
+        <div class="player-row">
+          <button class="play-btn" id="playBtn"><svg viewBox="0 0 24 24" id="playIcon"><path d="${PLAY}"/></svg></button>
+          <div class="seek-wrap">
+            <input type="range" class="seek" id="seekBar" min="0" value="0" step="0.1">
+            <div class="times"><span id="cur">0:00</span><span id="dur">0:00</span></div>
+          </div>
+        </div></div>`;
+      const btn = document.getElementById("playBtn");
+      const icon = document.getElementById("playIcon").querySelector("path");
+      const seek = document.getElementById("seekBar");
+      audio.volume = .8;
+      btn.onclick = () => { audio.paused ? (audio.play(), icon.setAttribute("d", PAUSE)) : (audio.pause(), icon.setAttribute("d", PLAY)); };
+      audio.addEventListener("loadedmetadata", () => { seek.max = audio.duration; document.getElementById("dur").textContent = fmt(audio.duration); });
+      audio.addEventListener("timeupdate", () => {
+        seek.value = audio.currentTime;
+        document.getElementById("cur").textContent = fmt(audio.currentTime);
+        const pct = (audio.currentTime / audio.duration * 100) || 0;
+        seek.style.background = `linear-gradient(to right, var(--rose) ${pct}%, var(--peach) ${pct}%)`;
+      });
+      audio.addEventListener("ended", () => { icon.setAttribute("d", PLAY); seek.value = 0; });
+      seek.addEventListener("input", () => { audio.currentTime = seek.value; });
+    }
+  }
+
+  /* modal surpresa */
+  const overlay = document.getElementById("overlay");
+  document.getElementById("btnSurprise").addEventListener("click", () => overlay.classList.add("on"));
+  document.getElementById("modalClose").addEventListener("click",   () => overlay.classList.remove("on"));
+  overlay.addEventListener("click", e => { if(e.target === overlay) overlay.classList.remove("on"); });
+
+  /* scroll reveal */
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add("visible"); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll(".reveal").forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
